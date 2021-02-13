@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <!-- Launch Dialogflow -->		
+    <rosparam command="load" file="$(find homework3)/config/params.yaml" ns="/dialogflow_client"/>
+    <node name="dialogflow_client" pkg="dialogflow_ros" type="dialogflow_client.py" output="screen"/>
+    
+    <!-- Launch Mic Client (Comment the below 2 lines to disable) -->
+    <remap from="/dialogflow_text" to="/dialogflow_client/requests/string_msg"/>
+    <node name="dialogflow_mic_client" pkg="dialogflow_ros" type="mic_client.py" output="screen"/> 
+
+    <!-- Launch Gem Simulation  -->
+    <include file="$(find igvc_self_drive_gazebo)/launch/load_task_world.launch" >
+     <arg name="auto_camera" value="true" />
+    </include>
+
+    <include file="$(find igvc_self_drive_gazebo)/launch/spawn_gem.launch" >
+     <arg name="start_x" value="124.616" />
+     <arg name="start_y" value="-183.13" />
+     <arg name="start_yaw" value="0" />
+     <arg name="twist_mode" value="true" />
+     <arg name="pub_tf" value="false" />
+    </include>
+
+    <!-- Launch Chatbot Node -->
+    <node name="homework3" pkg="homework3" type="chatbot_node.py" output="screen"/>
+
+</launch>
