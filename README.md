@@ -1,4 +1,4 @@
-# Homework3 HRI - Ben Grudzien
+# AI_Chatbot_Car_Control - Ben Grudzien
 
 This README only contains the instructions to run the system. The write-up explains this programs functionality.
 
